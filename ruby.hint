@@ -1,0 +1,6 @@
+category: Ruby
+requires: cygwin libxapian15 ruby
+external-source: xapian-bindings
+sdesc: "Ruby bindings for the Xapian search engine"
+ldesc: "Several language bindings for the Xapian search engine library:
+CSharp, Java, PHP, Python, Ruby, and Tcl."
