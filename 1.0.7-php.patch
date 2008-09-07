@@ -1,0 +1,11 @@
+--- origsrc/xapian-bindings-1.0.7/configure.ac	2008-07-15 23:42:44.000000000 -0500
++++ src/xapian-bindings-1.0.7/configure.ac	2008-07-16 21:49:18.937500000 -0500
+@@ -377,6 +377,8 @@
+ 	dnl someone who actually has mingw and wants to build the PHP bindings
+ 	dnl there.  FIXME.
+ 	PHP_LIBS="-L`$PHP_CONFIG --prefix` -lphp${PHP_MAJOR_VERSION}ts" ;;
++      cygwin*)
++	PHP_LIBS="-lphp${PHP_MAJOR_VERSION}lib" ;;
+       *)
+ 	PHP_LIBS= ;;
+       esac

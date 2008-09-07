@@ -1,0 +1,22 @@
+--- origsrc/xapian-bindings-1.0.7/configure.ac	2008-07-15 23:42:44.000000000 -0500
++++ src/xapian-bindings-1.0.7/configure.ac	2008-07-16 21:49:18.937500000 -0500
+@@ -254,6 +254,8 @@
+ 	case $host_os in
+ 	mingw* | pw32*)
+ 	  PYTHON_LIBS=`$PYTHON -c 'import os,sys;print("-L"+os.path.join(sys.prefix,"libs").replace(os.sep,"/")+" -lpython"+sys.version[[:3]].replace(".",""))'` ;;
++	cygwin*)
++	  PYTHON_LIBS=`$PYTHON -c 'import os,sys;print "-L"+os.path.join(sys.path[[3]],"config"),"-lpython"+sys.version[[:3]]'` ;;
+ 	*)
+ 	  PYTHON_LIBS= ;;
+ 	esac
+--- origsrc/xapian-bindings-1.0.7/python/Makefile.am	2008-07-15 23:42:41.000000000 -0500
++++ src/xapian-bindings-1.0.7/python/Makefile.am	2008-07-16 21:27:20.843750000 -0500
+@@ -23,7 +23,7 @@
+ 
+ # Install as _DATA rather than _SCRIPTS because we don't want to make these
+ # executable (they don't have a #! line).
+-pylib_DATA = xapian.py xapian.pyc xapian.pyo
++pylib_DATA = xapian.py
+ 
+ pylib_LTLIBRARIES = _xapian.la
+ 
