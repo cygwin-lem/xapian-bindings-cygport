@@ -13,17 +13,14 @@ PATCH_URI="
 	1.0.7-tcl.patch
 "
 
-n=0
 PKG_NAMES="${PN} xapian-sharp java-xapian php-xapian python-xapian ruby-xapian tcl-xapian"
-PKG_HINTS="setup csharp java php python ruby tcl"
-PKG_CONTENTS[$((n++))]="usr/share/doc/Cygwin/ usr/share/doc/${P}/[A-Z]*"
-PKG_CONTENTS[$((n++))]="usr/bin/*XapianSharp* usr/lib/mono/ usr/share/doc/${P}/csharp/"
-PKG_CONTENTS[$((n++))]="usr/bin/*xapian_jni*"
-PKG_CONTENTS[$((n++))]="${PHP_INI_DIR#/} ${PHP_EXTENSION_DIR#/} usr/share/pear/ usr/share/doc/${P}/php/"
-PKG_CONTENTS[$((n++))]="${PYTHON_SITELIB#/} usr/share/doc/${P}/python/"
-PKG_CONTENTS[$((n++))]="${RUBY_SITELIB#/} usr/share/doc/${P}/ruby/"
-PKG_CONTENTS[$((n++))]="${TCL_LIBDIR#/}/ usr/share/doc/${P}/tcl8/"
-unset n
+xapian_bindings_CONTENTS="usr/share/doc/Cygwin/ usr/share/doc/${P}/[A-Z]*"
+xapian_sharp_CONTENTS="usr/bin/*XapianSharp* usr/lib/mono/ usr/share/doc/${P}/csharp/"
+java_xapian_CONTENTS="usr/bin/*xapian_jni*"
+php_xapian_CONTENTS="${PHP_INI_DIR#/} ${PHP_EXTENSION_DIR#/} usr/share/pear/ usr/share/doc/${P}/php/"
+python_xapian_CONTENTS="${PYTHON_SITELIB#/} usr/share/doc/${P}/python/"
+ruby_xapian_CONTENTS="${RUBY_SITELIB#/} usr/share/doc/${P}/ruby/"
+tcl_xapian_CONTENTS="${TCL_LIBDIR#/}/ usr/share/doc/${P}/tcl8/"
 
 src_compile() {
 	cd ${S}

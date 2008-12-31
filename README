@@ -5,32 +5,32 @@ CSharp, Java, PHP, Python, Ruby, and Tcl.
 
 Runtime requirements:
   cygwin-1.5.25-15
-  libxapian15-1.0.8-1
+  libxapian15-1.0.10-1
 (xapian-sharp)
-  mono-1.9.1-1
+  mono-2.0-1
 (java-xapian)
   classpath-0.93-1
   jamvm-1.4.5-1
 (php-xapian)
   php-5.2.6-1
 (python-xapian)
-  python-2.5.2-2
+  python-2.5.2-4
 (ruby-xapian)
-  ruby-1.8.7_p22-1
+  ruby-1.8.7_p72-1
 (tcl-xapian)
-  tcl-8.4.18-1
+  tcl-8.4.19-2
 
 Build requirements:
 (besides corresponding -devel packages)
-  autoconf2.5-2.61-1
-  automake1.10-1.10.1-1
-  binutils-20060817-1
-  cygport-0.3.12-1
+  autoconf2.5-2.63-1
+  automake1.10-1.10.1-2
+  binutils-20080624-2
+  cygport-0.4.3-1
   gawk-3.1.6-1
   gcc-core-3.4.4-3
   gcc-g++-3.4.4-3
   gcc-java-3.4.4-3
-  libtool-2.2.2-2
+  libtool-2.2.6a-1
   make-3.81-1
   pkg-config-0.23a-2
   sed-4.1.5-2
@@ -39,26 +39,26 @@ Canonical website:
   http://www.xapian.org/
 
 Canonical download:
-  http://www.oligarchy.co.uk/xapian/1.0.8/
+  http://www.oligarchy.co.uk/xapian/1.0.10/
 
 -------------------------------------------
 
 Build instructions:
-  unpack xapian-bindings-1.0.8-X-src.tar.bz2
+  unpack xapian-bindings-1.0.10-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./xapian-bindings-1.0.8-X.cygport all
+  cygport ./xapian-bindings-1.0.10-X.cygport all
 
 This will create:
-  /usr/src/java-xapian-1.0.8-X.tar.bz2
-  /usr/src/php-xapian-1.0.8-X.tar.bz2
-  /usr/src/python-xapian-1.0.8-X.tar.bz2
-  /usr/src/ruby-xapian-1.0.8-X.tar.bz2
-  /usr/src/tcl-xapian-1.0.8-X.tar.bz2
-  /usr/src/xapian-bindings-1.0.8-X-src.tar.bz2
-  /usr/src/xapian-bindings-1.0.8-X.tar.bz2
-  /usr/src/xapian-sharp-1.0.8-X.tar.bz2
+  /usr/src/java-xapian-1.0.10-X.tar.bz2
+  /usr/src/php-xapian-1.0.10-X.tar.bz2
+  /usr/src/python-xapian-1.0.10-X.tar.bz2
+  /usr/src/ruby-xapian-1.0.10-X.tar.bz2
+  /usr/src/tcl-xapian-1.0.10-X.tar.bz2
+  /usr/src/xapian-bindings-1.0.10-X-src.tar.bz2
+  /usr/src/xapian-bindings-1.0.10-X.tar.bz2
+  /usr/src/xapian-sharp-1.0.10-X.tar.bz2
 
 -------------------------------------------
 
@@ -68,11 +68,11 @@ Files included in the binary packages:
   /usr/bin/cygXapianSharp.dll
   /usr/lib/libXapianSharp.la
   /usr/lib/mono/XapianSharp/XapianSharp.dll
-  /usr/lib/mono/gac/XapianSharp/1.0.8.0__f27eac7379d0fdbd/XapianSharp.dll
-  /usr/share/doc/xapian-bindings-1.0.8/csharp/examples/SimpleExpand.cs
-  /usr/share/doc/xapian-bindings-1.0.8/csharp/examples/SimpleIndex.cs
-  /usr/share/doc/xapian-bindings-1.0.8/csharp/examples/SimpleSearch.cs
-  /usr/share/doc/xapian-bindings-1.0.8/csharp/index.html
+  /usr/lib/mono/gac/XapianSharp/1.0.10.0__f27eac7379d0fdbd/XapianSharp.dll
+  /usr/share/doc/xapian-bindings-1.0.10/csharp/examples/SimpleExpand.cs
+  /usr/share/doc/xapian-bindings-1.0.10/csharp/examples/SimpleIndex.cs
+  /usr/share/doc/xapian-bindings-1.0.10/csharp/examples/SimpleSearch.cs
+  /usr/share/doc/xapian-bindings-1.0.10/csharp/index.html
 
 (java-xapian)
   /usr/bin/cygxapian_jni.dll
@@ -80,13 +80,13 @@ Files included in the binary packages:
 (php-xapian)
   /etc/php5/conf.d/xapian-bindings.ini
   /usr/lib/php/20060613/xapian.dll
-  /usr/share/doc/xapian-bindings-1.0.8/php/examples/simpleexpand.php4
-  /usr/share/doc/xapian-bindings-1.0.8/php/examples/simpleexpand.php5
-  /usr/share/doc/xapian-bindings-1.0.8/php/examples/simpleindex.php4
-  /usr/share/doc/xapian-bindings-1.0.8/php/examples/simpleindex.php5
-  /usr/share/doc/xapian-bindings-1.0.8/php/examples/simplesearch.php4
-  /usr/share/doc/xapian-bindings-1.0.8/php/examples/simplesearch.php5
-  /usr/share/doc/xapian-bindings-1.0.8/php/index.html
+  /usr/share/doc/xapian-bindings-1.0.10/php/examples/simpleexpand.php4
+  /usr/share/doc/xapian-bindings-1.0.10/php/examples/simpleexpand.php5
+  /usr/share/doc/xapian-bindings-1.0.10/php/examples/simpleindex.php4
+  /usr/share/doc/xapian-bindings-1.0.10/php/examples/simpleindex.php5
+  /usr/share/doc/xapian-bindings-1.0.10/php/examples/simplesearch.php4
+  /usr/share/doc/xapian-bindings-1.0.10/php/examples/simplesearch.php5
+  /usr/share/doc/xapian-bindings-1.0.10/php/index.html
   /usr/share/pear/xapian.php
 
 (python-xapian)
@@ -94,69 +94,72 @@ Files included in the binary packages:
   /usr/lib/python2.5/site-packages/xapian.py
   /usr/lib/python2.5/site-packages/xapian.pyc
   /usr/lib/python2.5/site-packages/xapian.pyo
-  /usr/share/doc/xapian-bindings-1.0.8/python/examples/simpleexpand.py
-  /usr/share/doc/xapian-bindings-1.0.8/python/examples/simpleindex.py
-  /usr/share/doc/xapian-bindings-1.0.8/python/examples/simplematchdecider.py
-  /usr/share/doc/xapian-bindings-1.0.8/python/examples/simplesearch.py
-  /usr/share/doc/xapian-bindings-1.0.8/python/index.html
+  /usr/share/doc/xapian-bindings-1.0.10/python/examples/simpleexpand.py
+  /usr/share/doc/xapian-bindings-1.0.10/python/examples/simpleindex.py
+  /usr/share/doc/xapian-bindings-1.0.10/python/examples/simplematchdecider.py
+  /usr/share/doc/xapian-bindings-1.0.10/python/examples/simplesearch.py
+  /usr/share/doc/xapian-bindings-1.0.10/python/index.html
 
 (ruby-xapian)
   /usr/lib/ruby/site_ruby/1.8/i386-cygwin/_xapian.so
   /usr/lib/ruby/site_ruby/1.8/xapian.rb
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/examples/simpleexpand.rb
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/examples/simpleindex.rb
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/examples/simplesearch.rb
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/index.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Database.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Database.src/M000007.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Database.src/M000008.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Database.src/M000009.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Database.src/M000010.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Document.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Document.src/M000014.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Document.src/M000015.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/ESet.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/ESet.src/M000001.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Enquire.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Enquire.src/M000013.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/ExpandTerm.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/ExpandTerm.src/M000019.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/ExpandTerm.src/M000020.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/MSet.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/MSet.src/M000016.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Match.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Match.src/M000011.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Match.src/M000012.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Posting.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Posting.src/M000005.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Posting.src/M000006.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Query.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Query.src/M000002.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Term.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Term.src/M000003.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Term.src/M000004.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Value.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Value.src/M000017.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/classes/Xapian/Value.src/M000018.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/created.rid
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/files/data/home/olly/tmp/xapian-svn-snapshot/tags/1_0_5/xapian/xapian-bindings/ruby/docs/__/xapian_rb.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/fr_class_index.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/fr_file_index.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/fr_method_index.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/index.html
-  /usr/share/doc/xapian-bindings-1.0.8/ruby/rdocs/rdoc-style.css
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/examples/simpleexpand.rb
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/examples/simpleindex.rb
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/examples/simplesearch.rb
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/index.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Database.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Database.src/M000007.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Database.src/M000008.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Database.src/M000009.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Database.src/M000010.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Document.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Document.src/M000014.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Document.src/M000015.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/ESet.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/ESet.src/M000001.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Enquire.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Enquire.src/M000013.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/ExpandTerm.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/ExpandTerm.src/M000019.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/ExpandTerm.src/M000020.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/MSet.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/MSet.src/M000016.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Match.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Match.src/M000011.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Match.src/M000012.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Posting.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Posting.src/M000005.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Posting.src/M000006.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Query.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Query.src/M000002.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Term.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Term.src/M000003.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Term.src/M000004.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Value.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Value.src/M000017.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/classes/Xapian/Value.src/M000018.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/created.rid
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/files/data/home/olly/tmp/xapian-svn-snapshot/tags/1_0_5/xapian/xapian-bindings/ruby/docs/__/xapian_rb.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/fr_class_index.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/fr_file_index.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/fr_method_index.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/index.html
+  /usr/share/doc/xapian-bindings-1.0.10/ruby/rdocs/rdoc-style.css
 
 (tcl-xapian)
-  /usr/lib/tcl8.4/xapian1.0.8/pkgIndex.tcl
-  /usr/lib/tcl8.4/xapian1.0.8/xapian.dll
-  /usr/share/doc/xapian-bindings-1.0.8/tcl8/examples/simpleindex.tcl
-  /usr/share/doc/xapian-bindings-1.0.8/tcl8/examples/simplesearch.tcl
-  /usr/share/doc/xapian-bindings-1.0.8/tcl8/index.html
+  /usr/lib/tcl8.4/xapian1.0.10/pkgIndex.tcl
+  /usr/lib/tcl8.4/xapian1.0.10/xapian.dll
+  /usr/share/doc/xapian-bindings-1.0.10/tcl8/examples/simpleindex.tcl
+  /usr/share/doc/xapian-bindings-1.0.10/tcl8/examples/simplesearch.tcl
+  /usr/share/doc/xapian-bindings-1.0.10/tcl8/index.html
 
 ------------------
 
 Port Notes:
+
+----- version 1.0.10-1 -----
+Version bump.
 
 ----- version 1.0.8-1 -----
 Version bump.
