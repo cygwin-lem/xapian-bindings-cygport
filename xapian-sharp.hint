@@ -1,5 +1,5 @@
 category: Dotnet
-requires: cygwin libxapian15 mono
+requires: libxapian15 mono
 external-source: xapian-bindings
 sdesc: "Mono bindings for the Xapian search engine"
 ldesc: "Several language bindings for the Xapian search engine library:

@@ -1,5 +1,5 @@
 category: Python
-requires: cygwin libxapian15 python
+requires: libxapian15 python
 external-source: xapian-bindings
 sdesc: "Python bindings for the Xapian search engine"
 ldesc: "Several language bindings for the Xapian search engine library:

@@ -1,5 +1,5 @@
 category: Tcl
-requires: cygwin libxapian15 tcl
+requires: libxapian15 tcl
 external-source: xapian-bindings
 sdesc: "Tcl bindings for the Xapian search engine"
 ldesc: "Several language bindings for the Xapian search engine library:
