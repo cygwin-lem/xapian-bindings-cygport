@@ -1,0 +1,11 @@
+--- origsrc/xapian-bindings-1.2.12/python/Makefile.am	2012-06-27 08:08:14.000000000 -0500
++++ src/xapian-bindings-1.2.12/python/Makefile.am	2012-07-31 22:45:07.829888700 -0500
+@@ -37,7 +37,7 @@ pkgpylibdir = @PYTHON_LIB@/xapian
+ 
+ # Install as _DATA rather than _SCRIPTS because we don't want to make these
+ # executable (they don't have a #! line).
+-pkgpylib_DATA = xapian/__init__.py xapian/__init__.pyc xapian/__init__.pyo
++pkgpylib_PYTHON = xapian/__init__.py
+ 
+ pkgpylib_LTLIBRARIES = _xapian.la
+ 

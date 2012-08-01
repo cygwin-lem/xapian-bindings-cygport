@@ -1,5 +1,0 @@
-category: Libs
-requires: xapian-sharp java-xapian php-xapian python-xapian ruby-xapian tcl-xapian
-sdesc: "Xapian search engine bindings (meta-package)"
-ldesc: "Several language bindings for the Xapian search engine library:
-CSharp, Java, PHP, Python, Ruby, and Tcl."

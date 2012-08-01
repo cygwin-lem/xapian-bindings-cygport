@@ -1,6 +1,0 @@
-category: PHP
-requires: libxapian15 php
-external-source: xapian-bindings
-sdesc: "PHP bindings for the Xapian search engine"
-ldesc: "Several language bindings for the Xapian search engine library:
-CSharp, Java, PHP, Python, Ruby, and Tcl."
