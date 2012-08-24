@@ -8,6 +8,7 @@ SRC_URI="http://www.oligarchy.co.uk/xapian/${PV}/${P}.tar.gz"
 PATCH_URI="
 	1.2.12-php.patch
 	1.2.12-python.patch
+	1.2.12-ruby.patch
 	1.2.12-tcl.patch
 "
 
