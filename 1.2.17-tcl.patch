@@ -1,0 +1,17 @@
+--- origsrc/xapian-bindings-1.2.17/configure.ac	2014-04-07 11:49:37.822499400 -0500
++++ src/xapian-bindings-1.2.17/configure.ac	2014-04-07 11:51:41.857749900 -0500
+@@ -531,14 +531,8 @@ if test no != "$with_tcl" ; then
+       fi
+ 
+       if test -n "$TCLSH" ; then
+-	dnl Cygwin needs to link with -ltcl8.5 or similar.
+ 	TCL_LIBS=
+ 	case $host_os in
+-	cygwin*)
+-	  AC_CHECK_LIB([tcl$tcl_version], [Tcl_Init],
+-		       [TCL_LIBS="-ltcl$tcl_version"],
+-		       [AC_MSG_ERROR([libtcl$tcl_version not found])])
+-	  ;;
+ 	*)
+ 	  dnl ::tcl::pkgconfig was added in Tcl 8.5, but prior to 8.6 it isn't
+ 	  dnl necessary to link against -ltclstub anyway.
