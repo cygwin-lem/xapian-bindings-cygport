@@ -1,7 +1,7 @@
-inherit java mono php python ruby tcl
+inherit php python ruby tcl # java mono
 
 NAME="xapian-bindings"
-VERSION=1.2.17
+VERSION=1.2.18
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Xapian search engine library bindings"
@@ -11,27 +11,42 @@ SRC_URI="http://www.oligarchy.co.uk/xapian/${VERSION}/${NAME}-${VERSION}.tar.xz"
 PATCH_URI="
 	1.2.12-php.patch
 	1.2.12-python.patch
-	1.2.12-ruby.patch
 	1.2.17-tcl.patch
 "
 
-PKG_NAMES="${NAME} java-xapian php-xapian python-xapian ruby-xapian tcl-xapian"
+PKG_NAMES="${NAME} php-xapian php-xapian-doc python-xapian python-xapian-doc
+	ruby-xapian ruby-xapian-doc tcl-xapian tcl-xapian-doc"
 xapian_bindings_CONTENTS="usr/share/doc/${NAME}/[ACHNRT]*"
 java_xapian_CATEGORY="Java"
 java_xapian_SUMMARY="Java bindings for the Xapian search engine library"
-java_xapian_CONTENTS="usr/lib/*xapian_jni* ${JAVA_DIR#/} ${JAVADOC_DIR#/}"
+java_xapian_CONTENTS="usr/lib/*xapian_jni* ${JAVA_DIR#/}"
+javadoc_xapian_CATEGORY="Doc"
+javadoc_xapian_CATEGORY=${java_xapian_SUMMARY}
+javadoc_xapian_CONTENTS=${JAVADOC_DIR#/}
 php_xapian_CATEGORY="PHP"
 php_xapian_SUMMARY="PHP bindings for the Xapian search engine library"
-php_xapian_CONTENTS="${PHP_INI_DIR#/} ${PHP_EXTENSION_DIR#/} ${PHP_PEAR_DIR#/} usr/share/doc/${NAME}/php/"
+php_xapian_CONTENTS="${PHP_INI_DIR#/} ${PHP_EXTENSION_DIR#/} ${PHP_PEAR_DIR#/}"
+php_xapian_doc_CATEGORY="Doc"
+php_xapian_doc_CATEGORY=${php_xapian_SUMMARY}
+php_xapian_doc_CONTENTS="usr/share/doc/${NAME}/php/"
 python_xapian_CATEGORY="Python"
 python_xapian_SUMMARY="Python bindings for the Xapian search engine library"
-python_xapian_CONTENTS="${PYTHON_SITELIB#/} usr/share/doc/${NAME}/python/"
+python_xapian_CONTENTS=${PYTHON_SITELIB#/}
+python_xapian_doc_CATEGORY="Doc"
+python_xapian_doc_CATEGORY=${python_xapian_SUMMARY}
+python_xapian_doc_CONTENTS="usr/share/doc/${NAME}/python/"
 ruby_xapian_CATEGORY="Ruby"
 ruby_xapian_SUMMARY="Ruby bindings for the Xapian search engine library"
-ruby_xapian_CONTENTS="${RUBY_VENDORLIB#/} usr/share/doc/${NAME}/ruby/"
+ruby_xapian_CONTENTS="${RUBY_VENDORARCH#/}/*.so ${RUBY_VENDORLIB#/}/*.rb"
+ruby_xapian_doc_CATEGORY="Doc"
+ruby_xapian_doc_CATEGORY=${ruby_xapian_SUMMARY}
+ruby_xapian_doc_CONTENTS="usr/share/doc/${NAME}/ruby/"
 tcl_xapian_CATEGORY="Tcl"
 tcl_xapian_SUMMARY="Tcl bindings for the Xapian search engine library"
-tcl_xapian_CONTENTS="usr/lib/xapian${VERSION}/ usr/share/doc/${NAME}/tcl8/"
+tcl_xapian_CONTENTS="usr/lib/xapian${VERSION}/"
+tcl_xapian_doc_CATEGORY="Doc"
+tcl_xapian_doc_CATEGORY=${tcl_xapian_SUMMARY}
+tcl_xapian_doc_CONTENTS="usr/share/doc/${NAME}/tcl8/"
 
 src_compile() {
 	cd ${S}
@@ -39,14 +54,17 @@ src_compile() {
 	cd ${B}
 	cygconf \
 		--without-csharp CSC=${MCS} GACUTIL=${GACUTIL} SN="/usr/bin/sn" \
-		--with-java JAVA_HOME=${JAVA_HOME} JNI_INCLUDE_DIR="/usr/include/jamvm" \
+		--without-java JAVA_HOME=${JAVA_HOME} JNI_INCLUDE_DIR="/usr/include/jamvm" \
 		--with-php PHP_EXTENSION_DIR=${PHP_EXTENSION_DIR} \
 		--with-python PYTHON_LIB=${PYTHON_SITELIB} \
 		--with-ruby RUBY_LIB=${RUBY_VENDORLIB} RUBY_LIB_ARCH=${RUBY_VENDORARCH} \
 		--with-tcl TCLSH=${TCLSH} TCL_LIB=/usr/lib
 	cygmake jnidir=/usr/lib
 
-	cygjavadoc -d ${B}/java/javadoc -sourcepath ${S}/java -subpackages org/xapian
+	if inherited java
+	then
+		cygjavadoc -d ${B}/java/javadoc -sourcepath ${S}/java -subpackages org/xapian
+	fi
 }
 
 src_install() {
@@ -55,8 +73,11 @@ src_install() {
 	# .la files are removed by install-data-hooks
 	find ${D} -name '*.dll.a' -delete
 
-	dojar java/built/xapian_jni.jar
-	newjavadoc java/javadoc xapian_jni
+	if inherited java
+	then
+		dojar java/built/xapian_jni.jar
+		newjavadoc java/javadoc xapian_jni
+	fi
 
 	php_postinst
 	python_optimize
