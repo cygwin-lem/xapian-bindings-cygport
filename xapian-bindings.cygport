@@ -2,7 +2,7 @@ inherit php python ruby tcl # java mono
 
 NAME="xapian-bindings"
 VERSION=1.2.18
-RELEASE=1
+RELEASE=2
 CATEGORY="Libs"
 SUMMARY="Xapian search engine library bindings"
 DESCRIPTION="A collection of language bindings for the Xapian search engine library."
