@@ -1,0 +1,33 @@
+--- origsrc/xapian-bindings-1.2.24/configure.ac	2017-03-19 22:43:44.980128700 -0500
++++ src/xapian-bindings-1.2.24/configure.ac	2017-03-19 23:04:23.544313500 -0500
+@@ -1112,7 +1112,7 @@ if test no != "$with_lua" ; then
+       AC_MSG_CHECKING([for Lua header files])
+       AC_ARG_VAR([LUA_INC], [Directory to include for lua headers])
+       if test -z "$LUA_INC" ; then
+-        dirs="/usr/include/lua$lua_version /usr/local/include/lua$lua_version"
++        dirs="/usr/include/lua$lua_version /usr/include /usr/local/include/lua$lua_version /usr/local/include"
+         for i in $dirs ; do
+           if test -r "$i/lua.h"; then
+             LUA_INC=$i
+@@ -1127,8 +1127,10 @@ if test no != "$with_lua" ; then
+         AC_MSG_RESULT([$LUA_INC])
+         BINDINGS="$BINDINGS lua"
+         LUA_CPPFLAGS="-I$LUA_INC"
++        LUA_LDFLAGS="-llua-$lua_version"
+       fi
+       AC_SUBST([LUA_CPPFLAGS])
++      AC_SUBST([LUA_LDFLAGS])
+     fi
+   else
+     if test yes = "$with_lua" ; then
+--- origsrc/xapian-bindings-1.2.24/lua/Makefile.am	2016-09-15 20:59:15.000000000 -0500
++++ src/xapian-bindings-1.2.24/lua/Makefile.am	2017-03-19 23:04:36.419054600 -0500
+@@ -30,7 +30,7 @@ AM_CPPFLAGS = @LUA_CPPFLAGS@
+ AM_CXXFLAGS = @SWIG_CXXFLAGS@ $(XAPIAN_CXXFLAGS)
+ xapian_la_LDFLAGS = -avoid-version -module -shrext "$(LUA_SO)" $(NO_UNDEFINED)
+ nodist_xapian_la_SOURCES = xapian_wrap.cc
+-xapian_la_LIBADD = $(XAPIAN_LIBS)
++xapian_la_LIBADD = $(XAPIAN_LIBS) $(LUA_LDFLAGS)
+ 
+ BUILT_SOURCES = xapian_wrap.cc
+ 
