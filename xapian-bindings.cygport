@@ -1,9 +1,9 @@
 # php: licensing issue, https://bugzilla.redhat.com/836112
-inherit lua python2 python3 ruby tcl # java mono php
+inherit lua python2 ruby tcl # java mono php
 
 NAME="xapian-bindings"
 VERSION=1.4.5
-RELEASE=1
+RELEASE=3
 CATEGORY="Libs"
 SUMMARY="Xapian search engine library bindings"
 DESCRIPTION="A collection of language bindings for the Xapian search engine library."
@@ -16,7 +16,8 @@ PATCH_URI="
 "
 
 PKG_NAMES="${NAME} lua-xapian lua-xapian-doc
-	python2-xapian python2-xapian-doc python3-xapian python3-xapian-doc
+	python27-xapian python2-xapian-doc
+	python36-xapian python37-xapian python3-xapian-doc
 	ruby-xapian ruby-xapian-doc tcl-xapian tcl-xapian-doc"
 xapian_bindings_CONTENTS="usr/share/doc/${NAME}/[ACHNRT]*"
 java_xapian_CATEGORY="Java"
@@ -37,19 +38,23 @@ php_xapian_CONTENTS="${PHP_INI_DIR#/} ${PHP_EXTENSION_DIR#/} ${PHP_PEAR_DIR#/}"
 php_xapian_doc_CATEGORY="Doc"
 php_xapian_doc_SUMMARY=${php_xapian_SUMMARY}
 php_xapian_doc_CONTENTS="usr/share/doc/${NAME}/php/"
-python2_xapian_CATEGORY="Python"
-python2_xapian_SUMMARY="Python bindings for the Xapian search engine library"
-python2_xapian_OBSOLETES="python-xapian"
-python2_xapian_CONTENTS=${PYTHON2_SITELIB#/}
+python27_xapian_CATEGORY="Python"
+python27_xapian_SUMMARY="Python bindings for the Xapian search engine library"
+python27_xapian_OBSOLETES="python-xapian python2-xapian"
+python27_xapian_CONTENTS="usr/lib/python2.7/site-packages/*"
 python2_xapian_doc_CATEGORY="Doc"
-python2_xapian_doc_SUMMARY=${python2_xapian_SUMMARY}
+python2_xapian_doc_SUMMARY="Python bindings for the Xapian search engine library"
 python2_xapian_doc_OBSOLETES="python-xapian-doc"
 python2_xapian_doc_CONTENTS="usr/share/doc/${NAME}/python/"
-python3_xapian_CATEGORY="Python"
-python3_xapian_SUMMARY="Python bindings for the Xapian search engine library"
-python3_xapian_CONTENTS=${PYTHON3_SITELIB#/}
+python36_xapian_CATEGORY="Python"
+python36_xapian_SUMMARY="Python bindings for the Xapian search engine library"
+python36_xapian_OBSOLETES="python3-xapian"
+python36_xapian_CONTENTS="usr/lib/python3.6/site-packages/*"
+python37_xapian_CATEGORY="Python"
+python37_xapian_SUMMARY="Python bindings for the Xapian search engine library"
+python37_xapian_CONTENTS="usr/lib/python3.7/site-packages/*"
 python3_xapian_doc_CATEGORY="Doc"
-python3_xapian_doc_SUMMARY=${python3_xapian_SUMMARY}
+python3_xapian_doc_SUMMARY="Python bindings for the Xapian search engine library"
 python3_xapian_doc_CONTENTS="usr/share/doc/${NAME}/python3/"
 ruby_xapian_CATEGORY="Ruby"
 ruby_xapian_SUMMARY="Ruby bindings for the Xapian search engine library"
@@ -70,14 +75,28 @@ src_compile() {
 	cd ${B}
 	cygconf \
 		--without-csharp CSC=${MCS} GACUTIL=${GACUTIL} SN="/usr/bin/sn" \
-		--without-java JAVA_HOME=${JAVA_HOME} JNI_INCLUDE_DIR="/usr/include/jamvm" \
+		--without-java JAVA_HOME= \
 		--with-lua LUA_LIB=${LUA_LIBDIR} \
-		--without-php PHP_EXTENSION_DIR=${PHP_EXTENSION_DIR} \
+		--without-php --without-php7 PHP_EXTENSION_DIR=${PHP_EXTENSION_DIR} \
 		--with-python PYTHON_LIB=${PYTHON2_SITELIB} \
-		--with-python3 PYTHON3_LIB=${PYTHON3_SITELIB} \
+		--without-python3 \
 		--with-ruby RUBY_LIB=${RUBY_VENDORLIB} RUBY_LIB_ARCH=${RUBY_VENDORARCH} \
 		--with-tcl TCLSH=${TCLSH} TCL_LIB=/usr/lib
 	cygmake jnidir=/usr/lib
+
+	# Python 3 versions
+	for v in 3.6 3.7
+	do
+		mkdir -p ${B}/python$v
+		pushd ${B}/python$v
+		cygconf \
+			--with-python3 PYTHON3=/usr/bin/python$v PYTHON3_LIB=/usr/lib/python$v/site-packages \
+			--without-csharp --without-java --without-lua \
+			--without-perl --without-php --without-php7 \
+			--without-python --without-ruby --without-tcl
+		cygmake
+		popd
+	done
 
 	if inherited java
 	then
@@ -88,6 +107,12 @@ src_compile() {
 src_install() {
 	cd ${B}
 	cyginstall jnidir=/usr/lib phpincdir=/usr/share/pear
+	for v in 3.6 3.7
+	do
+		pushd ${B}/python$v
+		cyginstall
+		popd
+	done
 	# .la files are removed by install-data-hooks
 	find ${D} -name '*.dll.a' -delete
 
