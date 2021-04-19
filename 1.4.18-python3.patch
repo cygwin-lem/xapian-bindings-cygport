@@ -1,0 +1,11 @@
+--- origsrc/xapian-bindings-1.4.18/python3/Makefile.am	2021-01-14 09:44:16.000000000 +0900
++++ src/xapian-bindings-1.4.18/python3/Makefile.am
+@@ -163,6 +163,6 @@ install-data-local:
+ all-local: $(sphinxdocs)
+ 
+ $(sphinxdocs): xapian/__init__.py xapian/_xapian$(PYTHON3_SO) docs/conf.py $(RST_DOCS) $(dist_exampledata_DATA)
+-	PYTHONPATH=..:$$PYTHONPATH $(OSX_SIP_HACK_ENV) $(PYTHON3) \
+-		$(srcdir)/sphinx-build \
++	PYTHONPATH=..:$$PYTHONPATH $(OSX_SIP_HACK_ENV) \
++		$(SPHINX_BUILD) \
+ 		-b html -d doctrees -c docs $(srcdir)/docs docs/html
