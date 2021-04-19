@@ -1,0 +1,7 @@
+category: Debug
+requires: cygwin-debuginfo
+external-source: xapian-bindings
+sdesc: "Debug info for xapian-bindings"
+ldesc: "This package contains files necessary for debugging the
+xapian-bindings package with gdb."
+test:

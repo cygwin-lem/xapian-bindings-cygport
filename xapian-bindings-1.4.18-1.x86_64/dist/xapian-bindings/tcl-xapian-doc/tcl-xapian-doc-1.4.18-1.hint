@@ -1,0 +1,6 @@
+category: Doc
+requires:  
+sdesc: "Tcl bindings for the Xapian search engine library"
+ldesc: "A collection of language bindings for the Xapian search engine library."
+external-source: xapian-bindings
+test:

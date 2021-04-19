@@ -1,0 +1,5 @@
+category: Libs
+requires:  
+sdesc: "Xapian search engine library bindings"
+ldesc: "A collection of language bindings for the Xapian search engine library."
+test:

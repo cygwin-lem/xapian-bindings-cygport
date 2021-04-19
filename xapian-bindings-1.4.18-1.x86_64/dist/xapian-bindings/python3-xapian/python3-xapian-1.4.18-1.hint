@@ -1,0 +1,8 @@
+category: _obsolete
+requires: python38-xapian
+sdesc: "Obsoleted by python38-xapian"
+ldesc: "The python3-xapian package is obsolete.  Selecting this package for
+installation will cause the python38-xapian package, which replaces this
+one, to be installed instead."
+external-source: xapian-bindings
+test:

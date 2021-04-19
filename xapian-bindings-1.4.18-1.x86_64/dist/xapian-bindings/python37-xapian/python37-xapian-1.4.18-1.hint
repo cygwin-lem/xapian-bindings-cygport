@@ -1,0 +1,6 @@
+category: Python
+requires:  cygwin libgcc1 libstdc++6 libxapian30 python37 
+sdesc: "Python bindings for the Xapian search engine library"
+ldesc: "A collection of language bindings for the Xapian search engine library."
+external-source: xapian-bindings
+test:
