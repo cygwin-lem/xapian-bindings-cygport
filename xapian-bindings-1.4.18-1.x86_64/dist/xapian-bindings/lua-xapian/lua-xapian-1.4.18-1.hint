@@ -1,0 +1,6 @@
+category: Lua
+requires:  cygwin libgcc1 liblua5.3 libstdc++6 libxapian30 
+sdesc: "Lua bindings for the Xapian search engine library"
+ldesc: "A collection of language bindings for the Xapian search engine library."
+external-source: xapian-bindings
+test:

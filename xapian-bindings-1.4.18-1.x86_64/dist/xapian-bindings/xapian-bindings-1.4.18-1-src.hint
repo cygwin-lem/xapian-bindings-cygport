@@ -1,0 +1,7 @@
+category: Libs
+build-depends: cygport   pkg-config  xapian-core libxapian-devel  swig  lua liblua-devel  php-devel  python36-devel python36-sphinx  python37-devel python37-sphinx  python38-devel python38-sphinx  ruby-devel ruby-rdoc ruby-test-unit  tcl-devel
+sdesc: "Xapian search engine library bindings"
+ldesc: "A collection of language bindings for the Xapian search engine library."
+skip:
+test:
+homepage: https://www.xapian.org/

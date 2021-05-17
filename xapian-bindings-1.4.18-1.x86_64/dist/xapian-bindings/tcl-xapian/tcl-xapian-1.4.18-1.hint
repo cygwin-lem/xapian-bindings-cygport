@@ -1,0 +1,6 @@
+category: Tcl
+requires:  cygwin libgcc1 libstdc++6 libxapian30 
+sdesc: "Tcl bindings for the Xapian search engine library"
+ldesc: "A collection of language bindings for the Xapian search engine library."
+external-source: xapian-bindings
+test:
