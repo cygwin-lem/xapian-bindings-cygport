@@ -1,23 +1,54 @@
 # php: licensing issue, https://bugzilla.redhat.com/836112
-inherit lua python2 ruby tcl # java mono php
+inherit lua ruby tcl # java mono php
 
 NAME="xapian-bindings"
-VERSION=1.4.5
-RELEASE=3
+VERSION=1.4.18
+RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Xapian search engine library bindings"
 DESCRIPTION="A collection of language bindings for the Xapian search engine library."
-HOMEPAGE="http://www.xapian.org/"
-SRC_URI="http://www.oligarchy.co.uk/xapian/${VERSION}/${NAME}-${VERSION}.tar.xz"
+HOMEPAGE="https://www.xapian.org/"
+SRC_URI="https://www.oligarchy.co.uk/xapian/${VERSION}/${NAME}-${VERSION}.tar.xz"
 PATCH_URI="
 	1.2.24-lua.patch
 	1.2.12-php.patch
 	1.2.17-tcl.patch
+	1.4.18-python3.patch
 "
 
+# The following patch is a workaround for an issue in building
+# modules for python 3.6 on i686 [1].
+#   The situation occurs at testing to load just-built modules
+#     /usr/bin/python3.6 -c 'import xapian'
+#     /usr/bin/python3.6 -O -c 'import xapian'
+#   And weirdly, only first runs will crash.
+#   The issue might be caused by BLODA, and I couldn't figure out
+#   an exact reason, yet.
+#   So, dummy runs are added just after building and rebasing modules.
+# [1]: https://sourceware.org/pipermail/cygwin-apps/2021-April/041196.html
+PATCH_URI+="
+	1.4.18-cygwin-rebase.patch
+"
+
+BUILD_REQUIRES="\
+  pkg-config\
+  xapian-core libxapian-devel\
+  swig\
+\
+  lua liblua-devel\
+  php-devel\
+  python36-devel python36-sphinx\
+  python37-devel python37-sphinx\
+  python38-devel python38-sphinx\
+  ruby-devel ruby-rdoc ruby-test-unit\
+  tcl-devel\
+"
+
+LUA_VERSIONS="5.3"
+PYTHON3_VERSIONS="3.6:3.7:3.8"
+
 PKG_NAMES="${NAME} lua-xapian lua-xapian-doc
-	python27-xapian python2-xapian-doc
-	python36-xapian python37-xapian python3-xapian-doc
+	python36-xapian python37-xapian python38-xapian python3-xapian-doc
 	ruby-xapian ruby-xapian-doc tcl-xapian tcl-xapian-doc"
 xapian_bindings_CONTENTS="usr/share/doc/${NAME}/[ACHNRT]*"
 java_xapian_CATEGORY="Java"
@@ -28,7 +59,8 @@ javadoc_xapian_SUMMARY=${java_xapian_SUMMARY}
 javadoc_xapian_CONTENTS=${JAVADOC_DIR#/}
 lua_xapian_CATEGORY="Lua"
 lua_xapian_SUMMARY="Lua bindings for the Xapian search engine library"
-lua_xapian_CONTENTS=${LUA_LIBDIR#/}
+#lua_xapian_CONTENTS=${LUA_LIBDIR#/}
+lua_xapian_CONTENTS="usr/lib/lua"
 lua_xapian_doc_CATEGORY="Doc"
 lua_xapian_doc_SUMMARY=${lua_xapian_SUMMARY}
 lua_xapian_doc_CONTENTS="usr/share/doc/${NAME}/lua/"
@@ -38,21 +70,16 @@ php_xapian_CONTENTS="${PHP_INI_DIR#/} ${PHP_EXTENSION_DIR#/} ${PHP_PEAR_DIR#/}"
 php_xapian_doc_CATEGORY="Doc"
 php_xapian_doc_SUMMARY=${php_xapian_SUMMARY}
 php_xapian_doc_CONTENTS="usr/share/doc/${NAME}/php/"
-python27_xapian_CATEGORY="Python"
-python27_xapian_SUMMARY="Python bindings for the Xapian search engine library"
-python27_xapian_OBSOLETES="python-xapian python2-xapian"
-python27_xapian_CONTENTS="usr/lib/python2.7/site-packages/*"
-python2_xapian_doc_CATEGORY="Doc"
-python2_xapian_doc_SUMMARY="Python bindings for the Xapian search engine library"
-python2_xapian_doc_OBSOLETES="python-xapian-doc"
-python2_xapian_doc_CONTENTS="usr/share/doc/${NAME}/python/"
 python36_xapian_CATEGORY="Python"
 python36_xapian_SUMMARY="Python bindings for the Xapian search engine library"
-python36_xapian_OBSOLETES="python3-xapian"
 python36_xapian_CONTENTS="usr/lib/python3.6/site-packages/*"
 python37_xapian_CATEGORY="Python"
 python37_xapian_SUMMARY="Python bindings for the Xapian search engine library"
 python37_xapian_CONTENTS="usr/lib/python3.7/site-packages/*"
+python38_xapian_CATEGORY="Python"
+python38_xapian_SUMMARY="Python bindings for the Xapian search engine library"
+python38_xapian_CONTENTS="usr/lib/python3.8/site-packages/*"
+python38_xapian_OBSOLETES="python3-xapian"
 python3_xapian_doc_CATEGORY="Doc"
 python3_xapian_doc_SUMMARY="Python bindings for the Xapian search engine library"
 python3_xapian_doc_CONTENTS="usr/share/doc/${NAME}/python3/"
@@ -69,33 +96,85 @@ tcl_xapian_doc_CATEGORY="Doc"
 tcl_xapian_doc_SUMMARY=${tcl_xapian_SUMMARY}
 tcl_xapian_doc_CONTENTS="usr/share/doc/${NAME}/tcl8/"
 
+CYGCONF_ARGS="--disable-visibility"
+
 src_compile() {
 	cd ${S}
 	cygautoreconf
-	cd ${B}
+
+	# ruby tcl
+	G=misc
+	inform "[Compile] ${G}"
+	mkdir -p ${B}/${G}
+	cd ${B}/${G}
 	cygconf \
+		--with-ruby RUBY_LIB=${RUBY_VENDORLIB} RUBY_LIB_ARCH=${RUBY_VENDORARCH} \
+		--with-tcl TCLSH=${TCLSH} TCL_LIB=/usr/lib \
 		--without-csharp CSC=${MCS} GACUTIL=${GACUTIL} SN="/usr/bin/sn" \
 		--without-java JAVA_HOME= \
-		--with-lua LUA_LIB=${LUA_LIBDIR} \
+		--without-lua \
 		--without-php --without-php7 PHP_EXTENSION_DIR=${PHP_EXTENSION_DIR} \
-		--with-python PYTHON_LIB=${PYTHON2_SITELIB} \
+		--without-python \
 		--without-python3 \
-		--with-ruby RUBY_LIB=${RUBY_VENDORLIB} RUBY_LIB_ARCH=${RUBY_VENDORARCH} \
-		--with-tcl TCLSH=${TCLSH} TCL_LIB=/usr/lib
+		;
 	cygmake jnidir=/usr/lib
 
-	# Python 3 versions
-	for v in 3.6 3.7
+	# Lua versions
+	for v in ${LUA_VERSIONS//:/ }
 	do
-		mkdir -p ${B}/python$v
-		pushd ${B}/python$v
+		G=lua${v}
+		inform "[Compile] ${G}"
+		mkdir -p ${B}/${G}
+		cd ${B}/${G}
+		LUA_EXEC=lua${v}
+		which ${LUA_EXEC} > /dev/null || LUA_EXEC=lua
+		LUA_V=$( ${LUA_EXEC} -v | sed -e 's/^[^ ]* *//;s/ .*$//;s/\([0-9][0-9]*\)\.\([0-9][0-9]*\).*/\1.\2/' )
+		[ x"${v}" = x"${LUA_V}" ] || error "${LUA_EXEC}: ${LUA_V} != ${v}"
+		LUA_INC=$(pkg-config --variable=INSTALL_INC lua-${v})
+		LUA_LIB=$(pkg-config --variable=INSTALL_CMOD lua-${v})
 		cygconf \
-			--with-python3 PYTHON3=/usr/bin/python$v PYTHON3_LIB=/usr/lib/python$v/site-packages \
-			--without-csharp --without-java --without-lua \
-			--without-perl --without-php --without-php7 \
-			--without-python --without-ruby --without-tcl
+			--with-lua \
+			  LUA=${LUA_EXEC} \
+			  LUA_INC=${LUA_INC} \
+			  LUA_LIB=${LUA_LIB} \
+			--without-csharp \
+			--without-java \
+			--without-perl \
+			--without-php --without-php7 \
+			--without-python \
+			--without-python3 \
+			--without-ruby \
+			--without-tcl \
+			;
 		cygmake
-		popd
+	done
+
+	# Python 3 versions
+	for v in ${PYTHON3_VERSIONS//:/ }
+	do
+		G=python${v}
+		inform "[Compile] ${G}"
+		mkdir -p ${B}/${G}
+		cd ${B}/${G}
+		cygconf \
+			--with-python3 \
+			  PYTHON3=/usr/bin/python${v} \
+			  PYTHON3_LIB=/usr/lib/python${v}/site-packages \
+			  PYTHONPATH=${B}/${G}/python3 \
+			--without-csharp \
+			--without-java \
+			--without-lua \
+			--without-perl \
+			--without-php --without-php7 \
+			--without-python \
+			--without-ruby \
+			--without-tcl \
+			;
+		cygmake \
+			PYTHONPATH=${B}/${G}/python3 \
+			SPHINX_BUILD=sphinx-build-${v} \
+			;
+
 	done
 
 	if inherited java
@@ -105,14 +184,30 @@ src_compile() {
 }
 
 src_install() {
-	cd ${B}
+	# ruby tcl
+	G=misc
+	inform "[Install] ${G}"
+	cd ${B}/${G}
 	cyginstall jnidir=/usr/lib phpincdir=/usr/share/pear
-	for v in 3.6 3.7
+
+	# Lua versions
+	for v in ${LUA_VERSIONS//:/ }
 	do
-		pushd ${B}/python$v
+		G=lua${v}
+		inform "[Install] ${G}"
+		cd ${B}/${G}
 		cyginstall
-		popd
 	done
+
+	# Python 3 versions
+	for v in ${PYTHON3_VERSIONS//:/ }
+	do
+		G=python${v}
+		inform "[Install] ${G}"
+		cd ${B}/${G}
+		cyginstall
+	done
+
 	# .la files are removed by install-data-hooks
 	find ${D} -name '*.dll.a' -delete
 
@@ -126,4 +221,32 @@ src_install() {
 	then
 		php_postinst
 	fi
+}
+
+src_test() {
+	# ruby tcl
+	G=misc
+	inform "[Test] ${G}"
+	cd ${B}/${G}
+	make check VERBOSE=1
+
+	# Lua versions
+	for v in ${LUA_VERSIONS//:/ }
+	do
+		G=lua${v}
+		inform "[Test] ${G}"
+		cd ${B}/${G}
+		make check VERBOSE=1
+	done
+
+	# Python 3 versions
+	for v in ${PYTHON3_VERSIONS//:/ }
+	do
+		G=python${v}
+		inform "[Test] ${G}"
+		cp -prt ${S}/python3/ ${B}/${G}/python3/xapian
+		cd ${B}/${G}
+		make check VERBOSE=1
+		rm -rf ${S}/python3/xapian
+	done
 }
